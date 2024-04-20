@@ -20,6 +20,17 @@ class HabitSerializer(serializers.ModelSerializer):
 
 
 class GoodHabitSerializer(HabitSerializer):
+
+    def validate(self, data):
+        if 'bounded_habit' in data and 'gift' in data:
+            raise serializers.ValidationError("Cannot specify both bounded_habit and gift.")
+        return data
+
+    def validate_duration(self, value):
+        if value > 120:
+            raise serializers.ValidationError("Duration cannot be greater than 120 seconds.")
+        return value
+
     class Meta:
         model = GoodHabit
         fields = '__all__'
@@ -29,6 +40,17 @@ class GoodHabitSerializer(HabitSerializer):
 
 
 class NiceHabitSerializer(HabitSerializer):
+
+    def validate(self, data):
+        if 'bounded_habit' in data:
+            raise serializers.ValidationError("Cannot specify bounded_habit for a nice habit.")
+        return data
+
+    def validate_is_nice(self, value):
+        if 'bounded_habit' in self.initial_data:
+            raise serializers.ValidationError("Nice habit cannot have a bounded_habit.")
+        return value
+
     class Meta:
         model = NiceHabit
         fields = '__all__'
