@@ -18,13 +18,13 @@ class TestUrls(SimpleTestCase):
         self.assertEqual(resolve(url).func.view_class, PublicHabitListAPIView)
 
     def test_habit_retrieve_url_resolves(self):
-        url = reverse('habits:habit', args=[1])  # Предполагая, что для теста у вас есть привычка с id=1
+        url = reverse('habits:habit', args=[1])
         self.assertEqual(resolve(url).func.view_class, HabitRetrieveAPIView)
 
     def test_habit_update_url_resolves(self):
-        url = reverse('habits:habit_update', args=[1])  # Предполагая, что для теста у вас есть привычка с id=1
+        url = reverse('habits:habit_update', args=[1])
         self.assertEqual(resolve(url).func.view_class, HabitUpdateAPIView)
 
     def test_habit_delete_url_resolves(self):
-        url = reverse('habits:habit_delete', args=[1])  # Предполагая, что для теста у вас есть привычка с id=1
+        url = reverse('habits:habit_delete', args=[1])
         self.assertEqual(resolve(url).func.view_class, HabitDestroyAPIView)
