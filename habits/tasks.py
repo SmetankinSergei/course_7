@@ -10,6 +10,7 @@ def check_habits_reminders():
     current_time = timezone.now().time()
     good_habits = GoodHabit.objects.filter(time__gte=current_time,
                                            time__lte=(current_time + datetime.timedelta(minutes=10)))
+
     nice_habits = NiceHabit.objects.filter(time__gte=current_time,
                                            time__lte=(current_time + datetime.timedelta(minutes=10)))
 
