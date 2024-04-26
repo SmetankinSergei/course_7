@@ -4,6 +4,9 @@ from django.db.models import CASCADE, DO_NOTHING
 from habits.constants import PERIODS
 
 
+NULLABLE = {'null': True, 'blank': True}
+
+
 class Habit(models.Model):
     name = models.CharField(max_length=100)
     owner = models.ForeignKey('users.User', on_delete=CASCADE, null=True)
@@ -19,7 +22,7 @@ class Habit(models.Model):
 
 class GoodHabit(Habit):
     bounded_habit = models.ForeignKey('NiceHabit', on_delete=DO_NOTHING)
-    gift = models.CharField(max_length=250)
+    gift = models.CharField(max_length=250, **NULLABLE)
 
 
 class NiceHabit(Habit):
